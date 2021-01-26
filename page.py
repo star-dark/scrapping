@@ -1,8 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-indeed_result = requests.get("https://kr.indeed.com/jobs?q=%EC%99%B8%EA%B5%AD%EA%B3%84%EA%B8%B0%EC%97%85")
+hotp_result = requests.get(
+    "http://www.menupan.com/restaurant/search/search_main.asp")
 
-indeed_soup = BeautifulSoup(indeed_result.text,"html.parser")
-pagination = indeed_soup.find("div",{"class":"pagination"})
-pages = pagination.soup('a')
+hotp_soup = BeautifulSoup(hotp_result.text, "html.parser")
+
+paging = hotp_soup.find("div", class_="paging")
+pages = paging.find_all('a')
+pages = pages[1:-2]
 print(pages)
