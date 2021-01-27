@@ -6,6 +6,10 @@ hotp_result = requests.get(
 hotp_soup = BeautifulSoup(hotp_result.text, "html.parser")
 
 paging = hotp_soup.find("div", class_="paging")
-pages = paging.find_all('a')
-pages = pages[1:-2]
-print(pages)
+first = paging.find("span",class_="pgClick").get_text()
+pagination = [first]
+pages = paging.find_all("a") 
+pages = pages[2:-2]
+for page in pages:
+  pagination.append(page.get_text())
+print(pagination)
