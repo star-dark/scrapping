@@ -17,6 +17,12 @@ def extract_hotplace():
   return max_page
 
 def extract_hotp_lope(last_page):
+  jobs = []
   for page in range(last_page):
     result = requests.get(f"{URL}.asp?page={LIMIT*page}&trec=9817&pt=rt")
-    print(result.status_code)
+    soup = BeautifulSoup(result.text, "html.parser")
+    results = soup.find_all("li")
+    for result in results:
+      title = result.find("p", class_="listName").find("span",class_="restName").find("a")
+      food_type = result.find("p", class_="listType")
+  return jobs
