@@ -1,3 +1,4 @@
-from extract import extract_hotp_lope, extract_hotplace
+from extract import extract_hotp_lope, extract_page
 
-print(extract_hotplace())
+last_pg = extract_page()
+print(extract_hotp_lope(10))
