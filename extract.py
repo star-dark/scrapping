@@ -1,4 +1,4 @@
-import requests
+import requests, re
 from bs4 import BeautifulSoup
 LIMIT = 1
 ranking = "rt" 
@@ -19,13 +19,14 @@ def extract_page():
     max_page = pagination[-1]
     return max_page
 def extract_rest(html):
-  rest_list = html.find_all(li)
-  if rest_list.class_== 
-    title = html.find("a", target_= "_blank").get_text()
-    food_type = html.find("p", class_="listType").get_text()
-    area = html.find("p", class_="listArea").get_text()
-  else 
-  return {'title' : title, 'type' : food_type, 'area' : area}
+  rest_list = html.find_all("li")
+  for i in rest_list:
+    if "cid_tab_list_li" in i:
+      title = html.find("span", class_= "restName").text
+      food_type = html.find("p", class_="listType").text
+      area = html.find("p", class_="listArea").text
+      return {'title' : title, 'type' : food_type, 'area' : area}
+    else : continue 
 def extract_hotp_lope(last_page):
     restaurant = []
     for page in range(last_page):
